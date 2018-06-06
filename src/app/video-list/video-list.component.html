@@ -1,0 +1,79 @@
+<br>
+<br>
+<button class="btn btn1 btn-outline-danger my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#dodavanjeVideaModal">Novi video</button>
+<br>
+<br>
+<div *ngFor="let video of videos">
+  <br>
+  <div class="card">
+    <div class="card-header d-flex w-100 justify-content-between">
+      <p>{{video.naziv}}</p>
+      <p class="text-right">{{video.datumKreiranja}}</p>
+      <p class="text-right">{{video.korisnikUsername}}</p>
+
+
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-4">
+          <iframe width="320" height="200" [src]='sanitizer.bypassSecurityTrustResourceUrl(video.url)'>
+          </iframe>
+        </div>
+        <div class="col-sm-8">
+          <p class="card-text">{{video.opis}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Dodavanje videa modal -->
+
+<div id="dodavanjeVideaModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" [style.backgroundColor]="'#e74c3c'">
+        <h5 class="modal-title text-white">Registracija</h5>
+        <button id="closeExampleModal" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <form #noviVideoForma="ngForm" (ngSubmit)="onSubmitVideo(noviVideoForma.value)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="naziv">Naziv:</label>
+            <input type="text" required name="naziv" class="form-control" id="naziv" placeholder="naziv" ngModel>
+          </div>
+          <div class="form-group">
+            <label for="url">Url:</label>
+            <input type="text" required name="url" class="form-control" id="url" placeholder="url" ngModel url>
+          </div>
+          <div class="form-group">
+            <label for="opis1">Url:</label>
+            <textarea class="form-control" name="opis" required rows="4" placeholder="Opis videa" id="opis1" ngModel></textarea>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="checkbox col-sm-6">
+                <label>
+                  <input type="checkbox" name="dozvoljeniKomentari" [ngModel]="true">Dozvoljeni komentar</label>
+              </div>
+              <div class="checkbox col-sm-6">
+                <label>
+                  <input type="checkbox" name="vidljivostRejtinga" [ngModel]="true">Vidljivost rejtinga</label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="modal-footer">
+          <button type="submit" [disabled]="!noviVideoForma.form.valid" class="btn btn-danger mr-auto">Registracija</button>
+          <button type="button" class="btn btn-secondary text-right" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

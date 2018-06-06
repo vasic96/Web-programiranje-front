@@ -1,8 +1,7 @@
-.btn1 {
-
-    margin-left: 10px !important;
-    margin-right: 10px  !important;
-
+.custom-row{
+    border-style: solid;
+    border-color: crimson;
+    border-width: 5px
 }
 
 input.ng-invalid{
