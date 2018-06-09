@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VideoService } from '../video.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import * as $ from 'jquery';
 
 
 @Component({
@@ -22,7 +23,10 @@ export class VideoListComponent implements OnInit {
   onSubmitVideo(video){
     video.korisnikUsername="vaso";
     this.videoService.addVideo(video).subscribe(
-      success => this.loadVideos(),
+      success => {
+        this.loadVideos();
+        $("#dodavanjeVideaModal .close").click();
+      },
       error => console.log(error)
     )
   
